@@ -1,0 +1,12 @@
+kind: Pod
+apiVersion: v1
+
+metadata:
+  name: product-micro-go
+  labels:
+    app: product-micro-go
+spec:
+  containers:
+  - name: product-micro-go
+    image: XXXXXXXXXXXXX
+    imagePullPolicy: Always
