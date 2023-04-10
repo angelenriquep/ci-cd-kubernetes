@@ -8,6 +8,8 @@ pipeline {
         GO114MODULE = 'on'
         CGO_ENABLED = 0 
         GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
+        dockerhubUser = "mockingbird2912"
+        dockerhubPassword = ""
     }
     stages {
         stage("unit-test") {
@@ -27,7 +29,7 @@ pipeline {
                 echo 'BUILD EXECUTION STARTED'
                 sh 'go version'
                 sh 'go get ./...'
-                sh 'docker build . -t shadowshotx/product-go-micro'
+                sh 'docker build . -t mockingbird2912/cicdtest'
             }
         }
         stage('deliver') {
@@ -35,7 +37,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhubPassword', usernameVariable: 'dockerhubUser')]) {
                 sh "docker login -u ${env.dockerhubUser} -p ${env.dockerhubPassword}"
-                sh 'docker push shadowshotx/product-go-micro'
+                sh 'docker push mockingbird2912/cicdtest'
                 }
             }
         }
